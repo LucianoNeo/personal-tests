@@ -5,16 +5,14 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function Confirm() {
+export default function Forgot() {
 
     const [username, setUser] = useState('')
-    const [code, setCode] = useState('')
     const [loading, setLoading] = useState(false)
+
     const navigate = useNavigation().navigate
 
-
-    
-    const onConfirmPress = async () => {
+    const onResetPress = async () => {
         if (loading) {
             return
         }
@@ -22,9 +20,9 @@ export default function Confirm() {
         setLoading(true)
 
         try {
-            const response = await Auth.confirmSignUp(username, code)
-            Alert.alert('Sucesso',"E-mail confirmado com sucesso!")
-            navigate('SignIn')
+            const response = await Auth.forgotPassword(username)
+            Alert.alert('Atenção', 'Um código de verificação foi enviado para o e-mail cadastrado!')
+            navigate('NewPassword')
         } catch (error) {
             Alert.alert('Oops', error.message)
         }
@@ -49,7 +47,7 @@ export default function Confirm() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Confirme seu E-mail</Text>
+            <Text style={styles.title}>Esqueci a senha:</Text>
 
             <TextInput
                 style={styles.inputs}
@@ -58,33 +56,18 @@ export default function Confirm() {
                 onChangeText={value => setUser(value)}
             />
 
-            <TextInput
-                style={styles.inputs}
-                placeholderTextColor='#EEE'
-                placeholder='Código:'
-                onChangeText={value => setCode(value)}
-            />
-
-
             <Button
                 color='#2D9135'
-                title={loading ? 'Carregando...' : 'Confirmar'}
-                onPress={() => onConfirmPress()}
+                title={loading ? 'Carregando...' : 'Resetar'}
+                onPress={() => onResetPress()}
                 disabled={loading ? true : false}
                 buttonStyle={styles.buttons}
             />
 
-            <Button
-                color='#2D9135'
-                title={loading ? 'Carregando...' : 'Reenviar código'}
-                onPress={() => onResendPress()}
-                disabled={loading ? true : false}
-                buttonStyle={styles.buttons}
-            />
             <TouchableOpacity>
-                <Text 
-                onPress={()=> navigate('SignIn')}
-                style={styles.texts}>
+                <Text
+                    onPress={() => navigate('SignIn')}
+                    style={styles.texts}>
                     Voltar para a tela de login
                 </Text>
             </TouchableOpacity>

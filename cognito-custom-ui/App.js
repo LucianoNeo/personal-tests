@@ -5,6 +5,9 @@ import awsconfig from './src/aws-exports'
 import SignIn from './src/screens/SignIn';
 import SignUp from './src/screens/SignUp';
 import Confirm from './src/screens/Confirm';
+import Forgot from './src/screens/Forgot';
+import Reset from './src/screens/Reset';
+import Navigation from './src/navigation';
 
 
 
@@ -23,9 +26,7 @@ async function signOut(){
 }
 
   return (
-    <View style={styles.container}>
-      <Confirm/>
-    </View>
+      <Navigation/>
   );
 }
 

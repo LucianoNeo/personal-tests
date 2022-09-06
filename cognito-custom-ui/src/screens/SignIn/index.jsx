@@ -2,6 +2,7 @@ import { Button, StyleSheet, Text, TextInput, View,TouchableOpacity, Alert } fro
 import styles from './styles'
 import {Auth} from 'aws-amplify'
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function SignIn() {
@@ -9,7 +10,7 @@ export default function SignIn() {
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-
+    const navigate = useNavigation().navigate
 
     const onSignInPress = async () =>{
         if(loading){
@@ -20,7 +21,7 @@ export default function SignIn() {
 
         try {
             const response =  await Auth.signIn(user, password)
-            Alert.alert('Bem vindo', 'ao FindDevs.')
+            navigate('Home')
             
         } catch (error) {
             Alert.alert('Oops', error.message)
@@ -53,26 +54,32 @@ export default function SignIn() {
                 disabled={loading ? true : false}
                 buttonStyle = {styles.buttons}
             />
+            <TouchableOpacity>
+            <Text 
+            onPress={()=> navigate('ForgotPassword')}
+            style={styles.texts}>Esqueci minha senha</Text>
+            </TouchableOpacity>
             <Text style={styles.texts}>Acesse também com:</Text>
             <View style={styles.socialContainer}>
 
                 <Button
                     color='#2D9135'
                     title='Google'
-                    onPress={() => { }}
-                    
+                    disabled={true}
                 />
 
                 <Button
                 style={styles.buttons}
                     color='#2D9135'
                     title='Apple'
-                    onPress={()=> onSignInPress()}
+                    disabled={true}
                 />
                  
             </View>
             <TouchableOpacity>
-            <Text style={styles.links}>Cadastre-se:</Text>
+            <Text 
+            onPress={()=> navigate('SignUp')}
+            style={styles.links}>Cadastre-se:</Text>
             </TouchableOpacity>
             
         </View>
