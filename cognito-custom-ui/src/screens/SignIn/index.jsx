@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View,TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View,TouchableOpacity, Alert } from 'react-native';
 import styles from './styles'
 import {Auth} from 'aws-amplify'
 import { useState } from 'react';
@@ -8,10 +8,24 @@ export default function SignIn() {
 
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
-    const onSignInPress = async() =>{
-        const response = await Auth.signIn(user, password)
-        console.log(response)
+
+    const onSignInPress = async () =>{
+        if(loading){
+            return
+        }
+
+        setLoading(true)
+
+        try {
+            const response =  await Auth.signIn(user, password)
+            Alert.alert('Bem vindo', 'ao FindDevs.')
+            
+        } catch (error) {
+            Alert.alert('Oops', error.message)
+        }
+        setLoading(false)
     }
 
     return (
@@ -34,8 +48,10 @@ export default function SignIn() {
             />
             <Button
                 color='#2D9135'
-                title='Entrar'
-                onPress={() => { }}
+                title={loading ? 'Carregando...':'Entrar'}
+                onPress={() => onSignInPress()}
+                disabled={loading ? true : false}
+                buttonStyle = {styles.buttons}
             />
             <Text style={styles.texts}>Acesse também com:</Text>
             <View style={styles.socialContainer}>

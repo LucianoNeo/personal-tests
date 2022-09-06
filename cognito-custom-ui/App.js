@@ -3,6 +3,8 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import Amplify, { Auth  } from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import SignIn from './src/screens/SignIn';
+import SignUp from './src/screens/SignUp';
+import Confirm from './src/screens/Confirm';
 
 
 
@@ -22,10 +24,12 @@ async function signOut(){
 
   return (
     <View style={styles.container}>
-      <SignIn/>
+      <Confirm/>
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
