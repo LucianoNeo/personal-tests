@@ -21,8 +21,7 @@ export default function SignIn() {
 
         try {
             const response =  await Auth.signIn(user, password)
-            navigate('Home')
-            
+                        
         } catch (error) {
             Alert.alert('Oops', error.message)
         }

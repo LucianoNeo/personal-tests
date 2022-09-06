@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import Amplify, { Auth  } from 'aws-amplify'
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import SignIn from './src/screens/SignIn';
 import SignUp from './src/screens/SignUp';
@@ -17,16 +17,10 @@ Amplify.configure(awsconfig)
 
 const App = () => {
 
-async function signOut(){
-  try {
-    await Auth.signOut()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
   return (
-      <Navigation/>
+    <SafeAreaView style={styles.container}>
+      <Navigation />
+    </SafeAreaView>
   );
 }
 
@@ -35,9 +29,7 @@ async function signOut(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#222',
   },
 });
 

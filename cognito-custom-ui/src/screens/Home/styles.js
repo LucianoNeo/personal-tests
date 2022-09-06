@@ -24,7 +24,7 @@ title:{
 
 },
 texts:{
-    color: 'white',
+    color: 'red',
     margin: 20,
 },
 socialContainer:{
