@@ -1,14 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Amplify, { Auth } from 'aws-amplify'
-import awsconfig from './src/aws-exports'
-import SignIn from './src/screens/SignIn';
-import SignUp from './src/screens/SignUp';
-import Confirm from './src/screens/Confirm';
-import Forgot from './src/screens/Forgot';
-import Reset from './src/screens/Reset';
+import { Poppins_400Regular, Poppins_500Medium, Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins';
+import Amplify from 'aws-amplify';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import awsconfig from './src/aws-exports';
 import Navigation from './src/navigation';
-
 
 
 
@@ -17,10 +11,26 @@ Amplify.configure(awsconfig)
 
 const App = () => {
 
+
+  
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular, Poppins_500Medium, Poppins_700Bold
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
+    
+    <View style={styles.container}>
+      <StatusBar
+      barStyle='light-content'
+      translucent={true}
+      backgroundColor='transparent'
+    />
       <Navigation />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -29,7 +39,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
+    backgroundColor: '#121214',
   },
 });
 
