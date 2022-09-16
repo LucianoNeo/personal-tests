@@ -11,6 +11,7 @@ amplify configure
 Criar usuario e pegar as chaves no site do AWS.
 
 ```
+amplify init
 amplify add auth
 amplify status
 amplify push
